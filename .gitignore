@@ -16,15 +16,23 @@ Desktop.ini
 #log files
 .log
 
+### SublimeText ###
+*.sublime-workspace
+
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
 #svn
 .svn/*
 
 # Vim swap files
 *.swp
 
-#node_modules/
-#!project/**/node_modules/
-#!seed/**/node_modules/
+node_modules/
 .sass-cache/
-tmp-cmd/
-./dist
+dist
+node_modules/
+
