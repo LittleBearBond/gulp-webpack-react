@@ -41,19 +41,9 @@ function get30DegRandom() {
     return ((Math.random() > 0.5 ? '' : '-') + Math.ceil(Math.random() * 30));
 }
 
-let CustomComponent = React.createClass({
-    render(){
-        return (<div className="custom-component"></div>);
-    }
-});
-
 let ImgFigure = React.createClass({
     handleClick: function(e) {
-        if (this.props.arrange.isCenter) {
-            this.props.inverse();
-        } else {
-            this.props.center();
-        }
+        this.props[this.props.arrange.isCenter ? 'inverse' : 'center']();
         e.stopPropagation();
         e.preventDefault();
     },
@@ -75,8 +65,7 @@ let ImgFigure = React.createClass({
             styleObj.zIndex = 11;
         }
 
-        let imgFigureClassName = 'img-figure';
-        imgFigureClassName += arrange.isInverse ? ' is-inverse' : '';
+        let imgFigureClassName = 'img-figure' + (arrange.isInverse ? ' is-inverse' : '');
 
         return (
             <figure className={imgFigureClassName} ref="img" style={styleObj} onClick={this.handleClick}>
@@ -97,20 +86,15 @@ let ImgFigure = React.createClass({
     }
 });
 // 控制组件
-var ControllerUnit = React.createClass({
+let ControllerUnit = React.createClass({
     handleClick: function (e) {
         // 如果点击的是当前正在选中态的按钮，则翻转图片，否则将对应的图片居中
-        if (this.props.arrange.isCenter) {
-            this.props.inverse();
-        } else {
-            this.props.center();
-        }
-
+        this.props[this.props.arrange.isCenter ? 'inverse' : 'center']();
         e.preventDefault();
         e.stopPropagation();
     },
     render: function () {
-        var controlelrUnitClassName = "controller-unit";
+        let controlelrUnitClassName = "controller-unit";
 
         // 如果对应的是居中的图片，显示控制按钮的居中态
         if (this.props.arrange.isCenter) {
@@ -126,7 +110,7 @@ var ControllerUnit = React.createClass({
     }
 });
 
-var App = React.createClass({
+let App = React.createClass({
     getInitialState() {
         return {
             imgsArrangeArr: []
@@ -152,7 +136,7 @@ var App = React.createClass({
    * @param centerIndex 指定居中排布哪个图片
    */
     rearrange: function(centerIndex) {
-        var imgsArrangeArr = this.state.imgsArrangeArr,
+        let imgsArrangeArr = this.state.imgsArrangeArr,
             Constant = this.Constant,
             centerPos = Constant.centerPos,
             hPosRange = Constant.hPosRange,
@@ -193,8 +177,8 @@ var App = React.createClass({
         });
 
         // 布局左右两侧的图片
-        for (var i = 0, j = imgsArrangeArr.length, k = j / 2; i < j; i++) {
-            var hPosRangeLORX = null;
+        for (let i = 0, j = imgsArrangeArr.length, k = j / 2; i < j; i++) {
+            let hPosRangeLORX = null;
 
             // 前半部分布局左边， 右半部分布局右边
             if (i < k) {
@@ -226,7 +210,7 @@ var App = React.createClass({
     },
     inverse(index){
         return function() {
-            var imgsArrangeArr = this.state.imgsArrangeArr;
+            let imgsArrangeArr = this.state.imgsArrangeArr;
 
             imgsArrangeArr[index].isInverse = !imgsArrangeArr[index].isInverse;
 
@@ -242,14 +226,14 @@ var App = React.createClass({
     },
     initPos(){
         // 首先拿到舞台的大小
-        var stageDOM = this.refs.stage,
+        let stageDOM = this.refs.stage,
             stageW = stageDOM.scrollWidth,
             stageH = stageDOM.scrollHeight,
             halfStageW = Math.ceil(stageW / 2),
             halfStageH = Math.ceil(stageH / 2);
 
         // 拿到一个imageFigure的大小
-        var imgFigureDOM = this.refs.imgFigure0.refs.img,
+        let imgFigureDOM = this.refs.imgFigure0.refs.img,
             imgW = imgFigureDOM.scrollWidth,
             imgH = imgFigureDOM.scrollHeight,
             halfImgW = Math.ceil(imgW / 2),
@@ -283,7 +267,7 @@ var App = React.createClass({
         window.addEventListener('resize',this.initPos.bind(this));
     },
     render() {
-        var controllerUnits = [],
+        let controllerUnits = [],
             imgFigures = [];
 
         imageDatas.forEach(function(value, index) {
