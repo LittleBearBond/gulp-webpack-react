@@ -4,21 +4,27 @@
  * This file is set up for serving the webpack-dev-server, which will watch for changes and recompile as required if
  * the subfolder /webpack-dev-server/ is visited. Visiting the root will not automatically reload.
  */
-'use strict';
-var webpack = require('webpack');
-var path = require('path');
-module.exports = {
+// http://www.alloyteam.com/2016/01/webpack-use-optimization/#prettyPhoto
+// http://zhizhi.betahouse.us/2016/07/12/webapck-gong-ju-jie-shao-he-you-hua/
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const nodeModulePath = path.join(__dirname, '/node_modules');
 
-    entry: [
-        "webpack-dev-server/client?http://localhost:8080/",
-        'webpack/hot/only-dev-server',
-        './src/components/app.js'
-    ],
+let config = {
+    entry: {
+        'index': ["webpack-dev-server/client?http://localhost:8080/",
+            'webpack/hot/only-dev-server',
+            path.join(__dirname, './src/components/app.js')],
+
+        'react-lib': ['react', 'react-dom']
+    },
     output: {
-        filename: 'main.js',
-        publicPath: '/assets/',
+        publicPath: '/',
         //这个路径配置 真TM的坑啊
-        path: __dirname + '/dist/assets/'
+        path: path.join(__dirname, '/dist/'),
+        filename: '[name].[hash:8].js',
+        chunkFilename: '[name].[hash:8].js',
     },
     cache: true,
     debug: true,
@@ -30,41 +36,67 @@ module.exports = {
     resolve: {
         extensions: ['', '.js', '.jsx'],
         alias: {
-            /*'styles': __dirname + '/src/styles',
-            'mixins': __dirname + '/src/mixins',
-            'components': __dirname + '/src/components/'*/
+            'styles': path.join(__dirname, '/src/styles'),
+            'mixins': path.join(__dirname, '/src/mixins'),
+            'components': path.join(__dirname, '/src/components/')
         }
     },
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ["react-lib"]
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin(),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery"
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/index.html',
+            inject: 'body',
+            filename: 'index.html',
+            chunks: ['index', 'react-lib']
+        }),
+    ],
     module: {
-        /*preLoaders: [{
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        loader: 'eslint'
-        }],*/
+        noParse: [],
         loaders: [{
             test: /\.(js|jsx)$/,
             exclude: /node_modules/,
-            loader: 'react-hot!babel', // transpiling compiling
-            // include: path.join(__dirname, 'src')
+            loader: 'react-hot!babel',
         }, {
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel'
-        }, {
-            test: /\.scss/,
-            loader: 'style!css!postcss!sass?outputStyle=expanded'
-        }, {
-            test: /\.css$/,
-            loader: 'style!css!postcss'
-        }, {
-            test: /\.json$/,
-            loader: 'json'
-        }, {
-            test: /\.(png|jpg|woff|woff2|eot|ttf|svg)$/,
-            loader: 'url?limit=8192'
-        }]
+                test: /(\.css|\.scss)/,
+                loader: 'style!css!postcss!sass?outputStyle=expanded'
+            }, {
+                test: /\.json$/,
+                loader: 'json'
+            }, {
+                test: /\.(png|jpg|woff|woff2|eot|ttf|svg)$/,
+                loader: 'url?limit=8192'
+            }]
     },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin()
-    ]
+    /*通过引用外部文件的方式引入第三方库
+    * externals 对象的 key 是给 require 时用的，比如 require('react')，
+    * 对象的 value 表示的是如何在 global 中访问到该对象，
+    * 这里是 window.React。这时候 index.html 就变成下面这样
+    */
+    //为什么去掉这个配置，是因为react单独抽离为一个文件，不是每次手动引入的
+    /*externals: {
+        react: 'React'
+    }*/
+
 };
+[
+    '/react/dist/react.js',
+    '/react/dist/react.min.js',
+    '/react-dom/dist/react-dom.js',
+    '/react-dom/dist/react-dom.min.js',
+    '/redux/dist/redux.js',
+    '/redux/dist/redux.min.js'
+].forEach(function (val) {
+    let depPath = path.join(nodeModulePath, val);
+    config.resolve.alias[val.split(path.sep)[0]] = depPath;
+    config.module.noParse.push(depPath);
+});
+
+module.exports = config;
