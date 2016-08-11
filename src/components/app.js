@@ -5,31 +5,30 @@
  * @email           littlebearbond@qq.com
  * @description
  */
-console.log(+new Date);
+import React from 'react';
+import ReactDOM  from 'react-dom';
+
 // CSS
 require('../css/normalize.css');
 require('../css/main.scss');
-const React = require('react');
-const ReactDOM = require('react-dom');
-console.log(React,ReactDOM);
 // 获取图片相关的数据
 let imageDatas = require('../data/imageDatas.json');
 let prefix = '';
-(function() {
+(function () {
     let el = document.createElement('div');
     for (let name in {
-            Webkit: 'Webkit',
-            Moz: 'Moz',
-            O: 'O'
-        }) {
+        webkit: 'Webkit',
+        moz: 'Moz',
+        o: 'O'
+    }) {
         if (el.style[name + 'TransitionProperty'] !== undefined) {
             prefix = name;
             break;
         }
     }
-}());
+} ());
 
-imageDatas.forEach(function(val, index) {
+imageDatas.forEach(function (val, index) {
     imageDatas[index].imageURL = require('../images/' + val.fileName);
 });
 
@@ -42,12 +41,12 @@ function get30DegRandom() {
 }
 
 let ImgFigure = React.createClass({
-    handleClick: function(e) {
+    handleClick: function (e) {
         this.props[this.props.arrange.isCenter ? 'inverse' : 'center']();
         e.stopPropagation();
         e.preventDefault();
     },
-    render(){
+    render() {
 
         let styleObj = {};
         let arrange = this.props.arrange;
@@ -70,14 +69,14 @@ let ImgFigure = React.createClass({
         return (
             <figure className={imgFigureClassName} ref="img" style={styleObj} onClick={this.handleClick}>
                 <img src={this.props.data.imageURL}
-                     alt={this.props.data.title}
-                />
+                    alt={this.props.data.title}
+                    />
                 <figcaption>
                     <h2 className="img-title">{this.props.data.title}</h2>
                     <div className="img-back" onClick={this.handleClick}>
-                      <p>
-                        {this.props.data.desc}
-                      </p>
+                        <p>
+                            {this.props.data.desc}
+                        </p>
                     </div>
                 </figcaption>
             </figure>
@@ -135,7 +134,7 @@ let App = React.createClass({
    * 重新布局所有图片
    * @param centerIndex 指定居中排布哪个图片
    */
-    rearrange: function(centerIndex) {
+    rearrange: function (centerIndex) {
         let imgsArrangeArr = this.state.imgsArrangeArr,
             Constant = this.Constant,
             centerPos = Constant.centerPos,
@@ -165,7 +164,7 @@ let App = React.createClass({
         imgsArrangeTopArr = imgsArrangeArr.splice(topImgSpliceIndex, topImgNum);
 
         // 布局位于上侧的图片
-        imgsArrangeTopArr.forEach(function(value, index) {
+        imgsArrangeTopArr.forEach(function (value, index) {
             imgsArrangeTopArr[index] = {
                 pos: {
                     top: getRangeRandom(vPosRangeTopY[0], vPosRangeTopY[1]),
@@ -203,13 +202,12 @@ let App = React.createClass({
         }
 
         imgsArrangeArr.splice(centerIndex, 0, imgsArrangeCenterArr[0]);
-        console.log(imgsArrangeArr)
         this.setState({
             imgsArrangeArr: imgsArrangeArr
         });
     },
-    inverse(index){
-        return function() {
+    inverse(index) {
+        return function () {
             let imgsArrangeArr = this.state.imgsArrangeArr;
 
             imgsArrangeArr[index].isInverse = !imgsArrangeArr[index].isInverse;
@@ -219,12 +217,12 @@ let App = React.createClass({
             });
         }.bind(this);
     },
-    center(index){
-        return function() {
+    center(index) {
+        return function () {
             this.rearrange(index);
         }.bind(this);
     },
-    initPos(){
+    initPos() {
         // 首先拿到舞台的大小
         let stageDOM = this.refs.stage,
             stageW = stageDOM.scrollWidth,
@@ -264,13 +262,13 @@ let App = React.createClass({
     // 组件加载以后， 为每张图片计算其位置的范围
     componentDidMount() {
         this.initPos();
-        window.addEventListener('resize',this.initPos.bind(this));
+        window.addEventListener('resize', this.initPos.bind(this));
     },
     render() {
         let controllerUnits = [],
             imgFigures = [];
 
-        imageDatas.forEach(function(value, index) {
+        imageDatas.forEach(function (value, index) {
             if (!this.state.imgsArrangeArr[index]) {
                 this.state.imgsArrangeArr[index] = {
                     pos: {
@@ -282,23 +280,23 @@ let App = React.createClass({
                     isCenter: false
                 };
             }
-            imgFigures.push(<ImgFigure key={index} data={value} ref={'imgFigure' + index} arrange={this.state.imgsArrangeArr[index]} inverse={this.inverse(index)} center={this.center(index)}/>);
-            controllerUnits.push(<ControllerUnit key={index} arrange={this.state.imgsArrangeArr[index]} inverse={this.inverse(index)} center={this.center(index)}/>);
+            imgFigures.push(<ImgFigure key={index} data={value} ref={'imgFigure' + index} arrange={this.state.imgsArrangeArr[index]} inverse={this.inverse(index) } center={this.center(index) }/>);
+            controllerUnits.push(<ControllerUnit key={index} arrange={this.state.imgsArrangeArr[index]} inverse={this.inverse(index) } center={this.center(index) }/>);
         }.bind(this));
 
         return (
             <section className="stage" ref="stage">
                 <section className="img-sec">
-                {imgFigures}
+                    {imgFigures}
                 </section>
                 <nav className="controller-nav">
-                {controllerUnits}
+                    {controllerUnits}
                 </nav>
             </section>
         );
-  }
+    }
 });
 
 ReactDOM.render(<App />, document.getElementById('content'));
 
-module.exports = App;
+export default App;
