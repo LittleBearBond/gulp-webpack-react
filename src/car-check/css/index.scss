@@ -1,0 +1,345 @@
+@charset "UTF-8";
+
+/**
+ *
+ * @authors xj
+ * @email   littlebearbond@qq.com
+ * @date    2016-04-01 14:35:48
+ * @version 0.1.0
+ */
+@import './reset.css';
+@import './common/common';
+@import './common/slide-page';
+$text-color: #999999;
+$text-color-black: #111111;
+$red-color: #ff6665;
+$yellow-color: #ff9600;
+$green-color: #15d497;
+
+//当前所有图片的基础路径
+$currBaseUrl:'../imgs/';
+body, .i-main {
+    background: $bg-color;
+    min-height: 100%;
+}
+.i-icon-img {
+    display: inline-block;
+    width: pxtorem(50);
+    height: pxtorem(42);
+    background: url('#{$currBaseUrl}img-icon.png') center center no-repeat;
+    background-size: pxtorem(48) auto;
+    vertical-align: middle;
+}
+h1 {
+    line-height: 1;
+    font-size: pxtorem(32);
+    color: $text-color-black;
+    font-weight: normal;
+}
+.i-red {
+    color: $red-color;
+}
+.i-yellow {
+    color: $yellow-color;
+}
+.i-green {
+    color: $green-color;
+}
+.p-list-item {
+    >li {
+        position: relative;
+        line-height: pxtorem(130);
+        height: pxtorem(130);
+        font-size: pxtorem(32);
+        color: #4c4c4c;
+        background: #fff;
+        margin-bottom: pxtorem(16);
+        text-indent: pxtorem(30);
+        @include rightArrow;
+    }
+    &.entrance {
+        >li {
+            background: #fff url('#{$currBaseUrl}index-icons.png') pxtorem(30) pxtorem(39) no-repeat;
+            background-size: pxtorem(48) auto;
+            text-indent: pxtorem(100);
+
+            &:nth-of-type(2) {
+                background-position: pxtorem(30) pxtorem(-109);
+            }
+            &:nth-of-type(3) {
+                background-position: pxtorem(30) pxtorem(-254);
+            }
+        }
+    }
+}
+
+/* 入口页面 */
+.p-entrance {
+    padding: pxtorem(16);
+}
+
+/* 搜索页面 */
+.p-search {
+    padding: pxtorem(16);
+
+    header {
+        position: relative;
+        margin-bottom: pxtorem(16);
+    }
+    i {
+        position: absolute;
+        display: inline-block;
+        height: pxtorem(60);
+        width: pxtorem(60);
+        left: pxtorem(18);
+        top: 0;
+        background: url('#{$currBaseUrl}search.png') 0 center no-repeat;
+        background-size: auto pxtorem(25);
+    }
+    input {
+        color: $text-color;
+        height: pxtorem(60);
+        line-height: pxtorem(60);
+        font-size: pxtorem(26);
+        padding: pxtorem(16) pxtorem(56);
+        width: 100%;
+    }
+}
+
+/* 提车批次页面 */
+.p-batch {
+    .p-list-item {
+        li {
+            padding: pxtorem(30);
+            background-color: #fff;
+
+            div {
+                line-height: 1;
+                color: $text-color;
+                font-size: pxtorem(24);
+                margin-top: pxtorem(17);
+            }
+        }
+    }
+}
+
+/* 验车单页面 */
+.p-list-items {
+    padding: pxtorem(16) 0;
+
+    >li {
+        padding: 0 pxtorem(30);
+        height: pxtorem(98);
+        line-height: pxtorem(98);
+        color: $text-color;
+        font-size: pxtorem(26);
+        background: #fff;
+        @include clearfix;
+
+        &:not(:last-child) {
+            border-bottom: solid #e9edf6 1px;
+        }
+        .i-fl{
+            @include ellipsis(pxtorem(380));
+        }
+        .i-fr {
+            &.red {
+                b {
+                    color: $red-color;
+                }
+            }
+            &.yellow {
+                b {
+                    color: $yellow-color;
+                }
+            }
+            &.green {
+                b {
+                    color: $green-color;
+                }
+            }
+            .i-icon-img {
+                height: pxtorem(96);
+                vertical-align: top;
+            }
+            b {
+                float: right;
+                margin-left: pxtorem(40);
+                line-height: pxtorem(98);
+                font-style: normal;
+                font-weight: normal;
+            }
+        }
+    }
+}
+// 水平列表
+.text-h-list {
+    @include clearfix;
+
+    >li {
+        float: left;
+        color: $text-color;
+        font-size: pxtorem(24);
+        font-style: normal;
+        margin-right: pxtorem(12);
+        line-height: 1;
+    }
+}
+
+/* 垂直列表 */
+.text-v-list {
+    >li {
+        color: $text-color;
+        font-size: pxtorem(24);
+        font-style: normal;
+        margin-right: pxtorem(12);
+        line-height: 1;
+        margin-bottom: pxtorem(12);
+    }
+}
+.p-inspection {
+    >.inner-wrap {
+        padding-bottom: pxtorem(150);
+    }
+    header {
+        padding: pxtorem(36) 0 pxtorem(28) pxtorem(45);
+        background: #fff;
+        height: pxtorem(130);
+
+        h1 {
+            margin-bottom: pxtorem(19);
+        }
+    }
+    .wrap-content {
+        padding: pxtorem(16);
+    }
+    .p-all-item {
+        background: #fff;
+        position: relative;
+        display: block;
+        height: pxtorem(130);
+        padding-left: pxtorem(30);
+        line-height: pxtorem(130);
+        font-size: pxtorem(32);
+        color: $text-color-black;
+        @include rightArrow;
+    }
+    .i-btn-block {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+}
+.p-line-text {
+    font-size: pxtorem(26);
+    color: $text-color;
+    padding-left: pxtorem(30);
+    margin-top: pxtorem(34);
+}
+.p-select-img {
+    height: pxtorem(300);
+    background: #fff;
+    padding: pxtorem(12);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+
+    &.hasimg{
+        >.inner-wrap:after {
+            content: "点击修改";
+            text-align: right;
+            line-height: 36px;
+            color: #ff8903;
+            bottom: 0;
+            position: absolute;
+            right:pxtorem(30);
+            span{
+                display: none;
+            }
+        }
+    }
+    .inner-wrap {
+        width: 100%;
+        height: pxtorem(276);
+        line-height: pxtorem(276);
+        text-align: center;
+        color: $text-color;
+        font-size: pxtorem(26);
+        border: dashed #dfdfdf 1px;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+    input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        font-size: 1000%;
+        z-index: 4;
+    }
+}
+
+/* 验车单确定 */
+.p-batch-confirm {
+    .inner-wrap{
+        padding-bottom: pxtorem(100);
+    }
+    header {
+        background: #fff;
+        padding: pxtorem(36) pxtorem(44) pxtorem(15);
+
+        h1 {
+            margin-bottom: pxtorem(30);
+        }
+    }
+    .wrap-text {
+        padding: pxtorem(32) pxtorem(44) pxtorem(15);
+        background: #fff;
+    }
+    .wrap-img{
+        width:100%;
+        text-align: center;
+
+        img{
+            display:inline-block;
+            max-width:90%;
+        }
+    }
+    .wrap-text-b {
+        color: #c6c6ca;
+        font-size: pxtorem(22);
+        line-height: pxtorem(30);
+        padding: pxtorem(28) pxtorem(44) pxtorem(11);
+    }
+    .i-btn-block {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+    .p-line-text{
+        padding-left: pxtorem(44);
+    }
+    .p-operate-step{
+        margin-top: pxtorem(30);
+        li{
+            color:#ff6665;
+            font-size: pxtorem(32);
+            line-height: pxtorem(46);
+            padding-left: pxtorem(44);
+        }
+    }
+}
+
+/*确认弹层*/
+.confirm-mask {
+    background: url('#{$currBaseUrl}confirm.png') 0 0 no-repeat;
+    background-size: pxtorem(406) auto;
+    position: fixed;
+    width: pxtorem(410);
+    height: pxtorem(410);
+    bottom: pxtorem(225);
+    right: pxtorem(20);
+    z-index: 1000;
+}

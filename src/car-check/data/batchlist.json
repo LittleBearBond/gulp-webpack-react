@@ -1,0 +1,45 @@
+{
+    "errno": 0,
+    "msg": "",
+    "data": [{
+        "id": "25",
+        "batch_no": "2016041000110025",
+        "title": "123",
+        "creator_id": "8309",
+        "creator_type": "1",
+        "city_id": "1",
+        "level": "B",
+        "check_level_text": "舒适型1",
+        "total_num": "2",
+        "picked_num": "0",
+        "end_time": "2016-04-10 18:00:00",
+        "create_time": "2016-04-05 16:47:04"
+    }, {
+        "id": "23",
+        "batch_no": "2016041000110025",
+        "title": "123",
+        "creator_id": "8309",
+        "creator_type": "1",
+        "city_id": "1",
+        "level": "B",
+        "check_level_text": "舒适型2",
+        "total_num": "2",
+        "picked_num": "0",
+        "end_time": "2016-04-10 18:00:00",
+        "create_time": "2016-04-05 16:47:04"
+    }, {
+        "id": "24",
+        "batch_no": "2016041000110024",
+        "title": "123",
+        "creator_id": "8309",
+        "creator_type": "1",
+        "city_id": "1",
+        "level": "B",
+        "check_level_text": "舒适型3",
+        "total_num": "2",
+        "picked_num": "0",
+        "end_time": "2016-04-10 18:00:00",
+        "create_time": "2016-04-05 15:51:38"
+    }],
+    "total_count": "3"
+}

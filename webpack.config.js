@@ -10,21 +10,24 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const nodeModulePath = path.join(__dirname, '/node_modules');
-
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 let config = {
     entry: {
-        'index': ["webpack-dev-server/client?http://localhost:8080/",
+        /* 'index': ["webpack-dev-server/client?http://localhost:8080/",
+             'webpack/hot/only-dev-server',
+             path.join(__dirname, './src/components/app.js')],*/
+        'todos-index': ["webpack-dev-server/client?http://localhost:8080/",
             'webpack/hot/only-dev-server',
-            path.join(__dirname, './src/components/app.js')],
-
-        'react-lib': ['react', 'react-dom']
+            path.join(__dirname, './src/todos/index.js')],
+        //'hotcss': [path.join(__dirname, './src/car-check/js/hotcss.js')],
+        'react-lib': ['react', 'react-dom', 'redux', 'react-redux']
     },
     output: {
         publicPath: '/',
         //这个路径配置 真TM的坑啊
         path: path.join(__dirname, '/dist/'),
-        filename: '[name].[hash:8].js',
-        chunkFilename: '[name].[hash:8].js',
+        filename: '[name].js',//.[hash:8]
+        chunkFilename: '[name].js',//.[hash:8]
     },
     cache: true,
     debug: true,
@@ -51,12 +54,21 @@ let config = {
             $: "jquery",
             jQuery: "jquery"
         }),
-        new HtmlWebpackPlugin({
+        /*new HtmlWebpackPlugin({
             template: './src/index.html',
             inject: 'body',
             filename: 'index.html',
             chunks: ['index', 'react-lib']
+        }),*/
+        new HtmlWebpackPlugin({
+            template: './src/todos/index.html',
+            inject: 'body',
+            filename: 'index.html',
+            chunks: ['react-lib', 'todos-index']
         }),
+       /* new ExtractTextPlugin('./todos/css/index.css', {
+            allChunks: true,
+        }),*/
     ],
     module: {
         noParse: [],
@@ -67,6 +79,7 @@ let config = {
         }, {
                 test: /(\.css|\.scss)/,
                 loader: 'style!css!postcss!sass?outputStyle=expanded'
+                // loader: ExtractTextPlugin.extract("style-loader", "css-loader", "css-loader", "postcss-loader", "sass-loader?outputStyle=expanded")
             }, {
                 test: /\.json$/,
                 loader: 'json'
@@ -91,6 +104,8 @@ let config = {
     '/react/dist/react.min.js',
     '/react-dom/dist/react-dom.js',
     '/react-dom/dist/react-dom.min.js',
+    '/react-redux/dist/react-redux.js',
+    '/react-redux/dist/react-redux.js',
     '/redux/dist/redux.js',
     '/redux/dist/redux.min.js'
 ].forEach(function (val) {

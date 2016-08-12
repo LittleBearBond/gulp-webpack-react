@@ -1,0 +1,128 @@
+
+@function maybeAddPx($num) {
+    @if $num==auto {
+        @return auto;
+    }
+    @if unitless($num) {
+        @return $num + px;
+    }
+    @else {
+        @return $num;
+    }
+}
+
+@mixin wh($size) {
+    $len: length($size);
+    $size: if($len > 0, $size, auto);
+    $width: nth($size, 1);
+    $height: nth($size, length($size));
+    @if $width != auto {
+        $width: maybeAddPx($width);
+    }
+    @if $len > 1 and $height != auto {
+        $height: maybeAddPx($height);
+    }
+    @if $len > 0 {
+        width: $width;
+    }
+    @if $len > 1 {
+        height: $height;
+    }
+}
+@mixin my-link($name) {
+    .#{$name},.#{$name}:hover,.#{$name}:focus,.#{$name}:active,.#{$name}:visited {
+        @content;
+    }
+}
+
+@mixin my-link-content {
+    &, &:hover, &:focus, &:active, &:visited {
+        @content;
+    }
+}
+
+@mixin my-box-shadow($shadow...) {
+    -webkit-box-shadow: $shadow;
+    // iOS <4.3 & Android <4.1
+    box-shadow: $shadow;
+}
+%ellipsis-basic {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+@mixin my-text-overflow($width: 100%) {
+    @extend %ellipsis-basic;
+    width: $width;
+}
+
+// 图片替换文字
+// 高级浏览器直接2就可以
+// 原生7,8不支持color的transparent，所以采用1;
+// ie6用1会有一条细线，所以采用3
+// 如果要兼容ie6，使用的时候请确定元素设置高度。
+@mixin my-ir($height: 99) {
+    font: 0/0 a;
+    //1
+    text-shadow: none;
+    border: 0 none;
+    color: transparent;
+    //2
+    @if $lte7 {
+        _overflow: hidden;
+        //3
+        _font-size: 10px;
+        //3
+        _line-height: $height;
+        //3
+    }
+}
+
+@mixin my-hide-text {
+    *font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+}
+
+
+// Placeholder text
+@mixin my-placeholder($color) {
+    // Firefox
+    &::-moz-placeholder {
+        color: $color;
+        opacity: 1;
+        // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+
+    }
+    &:-ms-input-placeholder {
+        color: $color;
+    }
+    // Internet Explorer 10+
+    &::-webkit-input-placeholder {
+        color: $color;
+    }
+    // Safari and Chrome
+}
+
+@mixin myplaceholder-content {
+    // Firefox
+    &::-moz-placeholder {
+        @content;
+        opacity: 1;
+        // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+
+    }
+    &:-ms-input-placeholder {
+        @content;
+    }
+    // Internet Explorer 10+
+    &::-webkit-input-placeholder {
+        @content;
+    }
+    // Safari and Chrome
+}

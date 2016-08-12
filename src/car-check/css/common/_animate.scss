@@ -1,0 +1,57 @@
+@charset "UTF-8";
+
+/**
+ *
+ * @authors xj
+ * @email   568915669@qq.com
+ * @date    2015-09-26 12:06:24
+ * @version 0.1.0
+ */
+@mixin dotting($time: 3) {
+    display: inline-block;
+    width: 10px;
+    min-height: 2px;
+    padding-right: 2px;
+    border-left: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    background-color: currentColor;
+    background-clip: content-box;
+    box-sizing: border-box;
+    animation: i-dot #{$time}s infinite step-start both;
+
+    &:before {
+        content: '...';
+    }
+
+    /* IE8 */
+    &::before {
+        content: '';
+    }
+
+    @at-root (without: all) {
+        :root & {
+            margin-left: 2px;
+            padding-left: 2px;
+        }
+
+        /* IE9+ */
+        @keyframes i-dot {
+            /* 0个点 */
+            25% {
+                border-color: transparent;
+                background-color: transparent;
+            }
+
+            /* 1个点 */
+            50% {
+                border-right-color: transparent;
+                background-color: transparent;
+            }
+
+            /* 2个点 */
+            75% {
+                border-right-color: transparent;
+            }
+        }
+    }
+}

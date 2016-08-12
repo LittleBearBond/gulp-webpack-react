@@ -1,0 +1,20 @@
+@charset "UTF-8";
+@import '../../sassCore/base-m';
+$designWidth: 750;
+
+html, body, .i-main {
+    height: 100%;
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    line-height: 1;
+}
+
+@mixin abs-center() {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+}

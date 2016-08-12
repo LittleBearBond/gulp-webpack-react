@@ -1,0 +1,148 @@
+@charset "UTF-8";
+@import 'base';
+@import 'variable';
+@import 'my-mixin';
+@import 'animate';
+$btn-color: #2850a8;
+$text-color: #999999;
+$text-color-black: #111111;
+$red-color: #ff6665;
+$yellow-color: #ff9600;
+$green-color: #15d497;
+//司机端黄色
+$driver-color: #ff8903;
+
+@mixin rightArrow($height:20) {
+    &:before {
+        content: '';
+        display: block;
+        width: pxtorem($height);
+        height: pxtorem($height);
+        border: solid #d8d8d8;
+        border-width: pxtorem(3) pxtorem(3) 0 0;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        transform: rotate(45deg);
+        margin-top: pxtorem(-$height/3);
+        position: absolute;
+        right: pxtorem(30);
+        top: 50%;
+        z-index: 1;
+    }
+}
+.page {
+    >.inner-wrap {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+.i-fl {
+    float: left;
+}
+.i-fr {
+    float: right;
+}
+.hidden, [hidden] {
+    display: none;
+}
+.i-tc {
+    text-align: center;
+}
+.i-btn {
+    background: $btn-color;
+    height: pxtorem(110);
+    line-height: pxtorem(110);
+    text-align: center;
+    color: #fff;
+    font-size: pxtorem(32);
+
+    &:active {
+        background: #456cc3;
+    }
+}
+.i-btn-block {
+    width: 100%;
+    display: block;
+}
+.i-btn-yellow {
+    background: $driver-color;
+
+    &:active {
+        background: #f79321;
+    }
+}
+.i-btn-yellow-border {
+    color: $driver-color;
+    border: solid 1px $driver-color;
+    background-color: #efeff4;
+
+    &:active {
+        background: #efeff4;
+    }
+}
+.i-form-list {
+    .i-form-item {
+        position: relative;
+        margin-bottom: pxtorem(16);
+        background: #fff;
+
+        &.i-red {
+            input, select {
+                color: $red-color;
+            }
+        }
+        &.i-yellow {
+            input, select {
+                color: $yellow-color;
+            }
+        }
+        &.i-green {
+            input, select {
+                color: $green-color;
+            }
+        }
+    }
+    input, select {
+        width: 100%;
+        height: pxtorem(100);
+        padding: pxtorem(32) pxtorem(30);
+        color: $text-color;
+        font-size: pxtorem(26);
+        background: transparent;
+        border: none;
+        outline: none;
+    }
+    select {
+        -webkit-appearance: none;
+        appearance: none;
+    }
+    .select-wrap {
+        @include rightArrow;
+    }
+}
+.mask {
+    height: 100%;
+    width: 100%;
+    background-color: #efeff4;
+    //rgba(0, 0, 0, 0.85);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 199;
+
+    .qrcode {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        width: 80%;
+        max-width: pxtorem(550);
+    }
+}

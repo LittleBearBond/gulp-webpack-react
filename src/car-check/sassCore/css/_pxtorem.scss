@@ -1,0 +1,5 @@
+@charset "UTF-8";
+$designWidth: 750 !default;
+@function pxtorem( $px ){
+    @return $px*320/$designWidth/20 + rem;
+}
