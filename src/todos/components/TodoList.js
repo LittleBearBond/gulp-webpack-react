@@ -7,13 +7,15 @@ const TodoList = ({ todos, onTodoClick }) => (
       <Todo
         key={todo.id}
         {...todo}
-        onClick={() => onTodoClick(todo.id)}
-      />
-    )}
+        onClick={() => onTodoClick(todo.id) }
+        />
+    ) }
   </ul>
 )
 
 TodoList.propTypes = {
+  // 指定类型组成的数组
+  // 特定形状参数的对象
   todos: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     completed: PropTypes.bool.isRequired,
