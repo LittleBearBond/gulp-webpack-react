@@ -14,6 +14,7 @@ class App extends Component {
         console.log(this.props);
         return (
             <div>
+                <h1>Todos</h1>
                 <AddTodo
                     onAddClick={text =>
                         dispatch(addTodo(text))
@@ -60,12 +61,11 @@ function selectTodos(todos, filter) {
     }
 }
 
-let visibleTodos = (state) => {
+
+// 包装 component ，注入 dispatch 和 state 到其默认的 connect(select)(App) 中；
+export default connect((state) => {
     return {
         todos: selectTodos(state.todos, state.visibilityFilter),
         visibilityFilter: state.visibilityFilter
     }
-}
-
-// 包装 component ，注入 dispatch 和 state 到其默认的 connect(select)(App) 中；
-export default connect(visibleTodos)(App)
+})(App)
