@@ -18,7 +18,7 @@ let config = {
              path.join(__dirname, './src/components/app.js')],*/
         'todos-index': ["webpack-dev-server/client?http://localhost:8080/",
             'webpack/hot/only-dev-server',
-            path.join(__dirname, './src/todos/index.js')],
+            path.join(__dirname, './src/todos-my/index.js')],
         //'hotcss': [path.join(__dirname, './src/car-check/js/hotcss.js')],
         'react-lib': ['react', 'react-dom', 'redux', 'react-redux']
     },
@@ -50,10 +50,10 @@ let config = {
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
-        new webpack.ProvidePlugin({
+        /*new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery"
-        }),
+        }),*/
         /*new HtmlWebpackPlugin({
             template: './src/index.html',
             inject: 'body',
@@ -61,7 +61,7 @@ let config = {
             chunks: ['index', 'react-lib']
         }),*/
         new HtmlWebpackPlugin({
-            template: './src/todos/index.html',
+            template: './src/todos-my/index.html',
             inject: 'body',
             filename: 'index.html',
             chunks: ['react-lib', 'todos-index']
