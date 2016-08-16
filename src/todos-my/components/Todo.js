@@ -1,9 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames';
 export default class Todo extends Component {
-
     render() {
-        console.log(this.props.completed);
         return (
             <li className={classNames({
                 'list-group-item': true,
@@ -16,7 +14,7 @@ export default class Todo extends Component {
                     cursor: this.props.completed ? 'default' : 'pointer'
                 }}>
                 <div className="checkbox">
-                    <input type="checkbox" checked={this.props.completed}  onClick={this.props.onClick} />
+                    <input type="checkbox" defaultChecked={this.props.completed}  onClick={this.props.onClick} />
                     <label> {this.props.text} </label>
                     <span className="glyphicon glyphicon-remove" onClick={this.props.onRemove}></span>
                 </div>

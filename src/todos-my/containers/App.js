@@ -1,17 +1,16 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { addTodo, completeTodo, removeTodo, editTodo, saveTodo, setVisibilityFilter, SET_VISIBILITY_FILTER, VisibilityFilters } from '../actions'
+import { addTodo, completeTodo, removeTodo, editTodo, saveTodo, setVidibilityFilter, SET_VISIBILITY_FILTER, VisibilityFilters } from '../actions'
 import AddTodo from '../components/AddTodo'
 import TodoList from '../components/TodoList'
 import { combineReducers } from 'redux'
-// import Footer from '../components/Footer'
+import Footer from '../components/Footer'
 
 const {SHOW_ALL } = VisibilityFilters;
 
 class App extends Component {
     render() {
         const {dispatch, todos, visibilityFilter} = this.props;
-        console.log(this.props);
         return (
             <div>
                 <h1>Todos</h1>
@@ -34,11 +33,18 @@ class App extends Component {
                         (id, text) => dispatch(saveTodo(id, text))
                     }
                     />
+                    <Footer/>
             </div>
 
         )
     }
 }
+/*<Footer
+    filter = {visibilityFilter}
+    onFilterChange={
+    nextFilter => dispatch(setVidibilityFilter(nextFilter))
+    }
+/>*/
 
 App.propTypes = {
     todos: PropTypes.arrayOf(PropTypes.shape({
