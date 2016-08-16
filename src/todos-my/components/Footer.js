@@ -6,14 +6,21 @@ const {SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE} = VisibilityFilters
 class Link extends Component {
     render() {
         const {active, filter, onFilterChange, children} = this.props;
+        const style = {
+            'marginRight': '10px',
+        };
         if (active) {
-            return <span>{filter}</span>
+            return <span  style={style} >{filter}</span>
         }
         return (
-            <a href='javascript:' onClick={e => {
-                e.preventDefault()
-                onFilterChange(filter)
-            } }>
+            <a href='javascript:'
+                className="btn btn-default btn-sm"
+                onClick={e => {
+                    e.preventDefault()
+                    onFilterChange(filter)
+                } }
+                style={style}
+                >
                 {children}
             </a>
         )
@@ -44,6 +51,7 @@ const FilterLink = connect(
 
 export default class Footer extends Component {
     render() {
+        const props = this.props;
         return (
             <footer>
                 <FilterLink filter={SHOW_ALL} >

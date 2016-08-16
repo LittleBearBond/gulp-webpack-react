@@ -14,10 +14,7 @@ class App extends Component {
         return (
             <div>
                 <h1>Todos</h1>
-                <AddTodo
-                    onAddClick={text =>
-                        dispatch(addTodo(text))
-                    } />
+                <AddTodo/>
                 <TodoList
                     todos={todos}
                     onTodoClick={
@@ -66,7 +63,6 @@ function selectTodos(todos, filter) {
             return todos.filter(todo => !todo.completed)
     }
 }
-
 
 // 包装 component ，注入 dispatch 和 state 到其默认的 connect(select)(App) 中；
 export default connect((state) => {

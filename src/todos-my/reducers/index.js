@@ -40,6 +40,7 @@ const todo = (state, action) => {
 function todos(state = [], action) {
     switch (action.type) {
         case ADD_TODO:
+            //return state.concat(todo(undefined, action))
             return [
                 ...state,
                 todo(undefined, action)

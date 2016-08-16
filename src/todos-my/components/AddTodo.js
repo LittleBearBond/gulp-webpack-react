@@ -1,9 +1,10 @@
 
 import React, {Component, PropTypes} from 'react';
+import { connect } from 'react-redux'
+import { addTodo } from '../actions'
 
-export default class AddTodo extends Component {
+class AddTodo extends Component {
     render() {
-        let input;
         return (
             <div>
                 <form className="form-inline"  onSubmit={e => {
@@ -20,17 +21,20 @@ export default class AddTodo extends Component {
         )
     }
     handleClick(e) {
+        e.preventDefault();
+        const {dispatch} = this.props;
         const node = this.refs.input
         const text = node.value.trim();
         if (!text) {
             return;
         }
-        this.props.onAddClick(text);
+        dispatch(addTodo(text));
         node.value = ''
         node.focus();
     }
 }
 
-AddTodo.propTypes = {
-    onAddClick: PropTypes.func.isRequired
-}
+
+AddTodo = connect()(AddTodo)
+
+export default AddTodo;
