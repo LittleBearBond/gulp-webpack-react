@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { addTodo, completeTodo, removeTodo, editTodo, saveTodo, setVidibilityFilter, SET_VISIBILITY_FILTER, VisibilityFilters } from '../actions'
 import AddTodo from '../components/AddTodo'
 import TodoList from '../components/TodoList'
+import UndoRedo from '../components/undoredo'
 import { combineReducers } from 'redux'
 import Footer from '../components/Footer'
 

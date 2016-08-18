@@ -13,13 +13,20 @@ const nodeModulePath = path.join(__dirname, '/node_modules');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 let config = {
     entry: {
-        /* 'index': ["webpack-dev-server/client?http://localhost:8080/",
-             'webpack/hot/only-dev-server',
-             path.join(__dirname, './src/components/app.js')],*/
-        'todos-index': ["webpack-dev-server/client?http://localhost:8080/",
+        /*'index': ["webpack-dev-server/client?http://localhost:8080/",
             'webpack/hot/only-dev-server',
-            path.join(__dirname, './src/todos-my/index.js')],
-        //'hotcss': [path.join(__dirname, './src/car-check/js/hotcss.js')],
+            path.join(__dirname, './src/components/app.js')],
+       'todos-index': ["webpack-dev-server/client?http://localhost:8080/",
+           'webpack/hot/only-dev-server',
+           path.join(__dirname, './src/todos-my/index.js')],
+       'todomvc': ["webpack-dev-server/client?http://localhost:8080/",
+           'webpack/hot/only-dev-server',
+           path.join(__dirname, './src/todomvc/index.js')],*/
+        'car-check': ["webpack-dev-server/client?http://localhost:8080/",
+            'webpack/hot/only-dev-server',
+            path.join(__dirname, './src/car-check/js/hotcss.js'),
+            path.join(__dirname, './src/car-check/index.js')
+        ],
         'react-lib': ['react', 'react-dom', 'redux', 'react-redux']
     },
     output: {
@@ -54,21 +61,27 @@ let config = {
             $: "jquery",
             jQuery: "jquery"
         }),*/
-        /*new HtmlWebpackPlugin({
-            template: './src/index.html',
-            inject: 'body',
-            filename: 'index.html',
-            chunks: ['index', 'react-lib']
-        }),*/
+        /* new HtmlWebpackPlugin({
+             template: './src/todos-my/index.html',
+             inject: 'body',
+             filename: 'index.html',
+             chunks: ['react-lib', 'todos-index']
+         }),
+         new HtmlWebpackPlugin({
+             template: './src/todomvc/index.html',
+             inject: 'body',
+             filename: 'index.html',
+             chunks: ['react-lib', 'todomvc']
+         }),*/
         new HtmlWebpackPlugin({
-            template: './src/todos-my/index.html',
+            template: './src/car-check/index.html',
             inject: 'body',
             filename: 'index.html',
-            chunks: ['react-lib', 'todos-index']
+            chunks: ['car-check', 'react-lib']
         }),
-       /* new ExtractTextPlugin('./todos/css/index.css', {
-            allChunks: true,
-        }),*/
+        /* new ExtractTextPlugin('./todos/css/index.css', {
+             allChunks: true,
+         }),*/
     ],
     module: {
         noParse: [],
@@ -97,7 +110,6 @@ let config = {
     /*externals: {
         react: 'React'
     }*/
-
 };
 [
     '/react/dist/react.js',

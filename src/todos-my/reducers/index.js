@@ -1,4 +1,4 @@
-import {ADD_TODO, COMPLETE_TODO, REMOVE_TODO, DEIT_TODO, SAVE_TODO, SET_VISIBILITY_FILTER, VisibilityFilters} from '../actions'
+import {ADD_TODO, COMPLETE_TODO, REMOVE_TODO, EDIT_TODO, SAVE_TODO, SET_VISIBILITY_FILTER, VisibilityFilters} from '../actions'
 import { combineReducers } from 'redux'
 const {SHOW_ALL} = VisibilityFilters;
 
@@ -20,9 +20,9 @@ const todo = (state, action) => {
                     completed: !curr.completed
                 });
             });
-        case DEIT_TODO:
+        case EDIT_TODO:
         case SAVE_TODO:
-            let isEdit = DEIT_TODO === action.type;
+            let isEdit = EDIT_TODO === action.type;
             return state.map(curr => {
                 if (curr.id !== action.id) {
                     return curr;
@@ -46,7 +46,7 @@ function todos(state = [], action) {
                 todo(undefined, action)
             ]
         case COMPLETE_TODO:
-        case DEIT_TODO:
+        case EDIT_TODO:
         case SAVE_TODO:
             return todo(state, action)
         case REMOVE_TODO:

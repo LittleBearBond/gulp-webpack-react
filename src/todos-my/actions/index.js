@@ -5,7 +5,7 @@
 export const ADD_TODO = 'ADD_TODO';
 export const COMPLETE_TODO = 'COMPLETE_TODO';
 export const REMOVE_TODO = 'REMOVE_TODO';
-export const DEIT_TODO = 'DEIT_TODO';
+export const EDIT_TODO = 'EDIT_TODO';
 export const SAVE_TODO = 'SAVE_TODO';
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
 let id = 0;
@@ -36,7 +36,7 @@ export function removeTodo(id) {
 
 export function editTodo(id) {
     return {
-        type: DEIT_TODO,
+        type: EDIT_TODO,
         id
     }
 }

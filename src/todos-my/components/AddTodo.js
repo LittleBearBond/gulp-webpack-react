@@ -11,7 +11,7 @@ class AddTodo extends Component {
                     e.preventDefault()
                 } }>
                     <div className="form-group">
-                        <input  className="form-control" ref="input"/>
+                        <input  className="form-control"  autoFocus="true" ref="input"/>
                     </div>
                     <button type="submit"  className="btn btn-default" onClick={(e) => this.handleClick(e) }>
                         Add Todo
