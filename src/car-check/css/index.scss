@@ -85,24 +85,24 @@ h1 {
     header {
         position: relative;
         margin-bottom: pxtorem(16);
-    }
-    i {
-        position: absolute;
-        display: inline-block;
-        height: pxtorem(60);
-        width: pxtorem(60);
-        left: pxtorem(18);
-        top: 0;
-        background: url('#{$currBaseUrl}search.png') 0 center no-repeat;
-        background-size: auto pxtorem(25);
-    }
-    input {
-        color: $text-color;
-        height: pxtorem(60);
-        line-height: pxtorem(60);
-        font-size: pxtorem(26);
-        padding: pxtorem(16) pxtorem(56);
-        width: 100%;
+        i {
+            position: absolute;
+            display: inline-block;
+            height: pxtorem(60);
+            width: pxtorem(60);
+            left: pxtorem(18);
+            top: 0;
+            background: url('#{$currBaseUrl}search.png') 0 center no-repeat;
+            background-size: auto pxtorem(25);
+        }
+        .p-search {
+            color: $text-color;
+            height: pxtorem(60);
+            line-height: pxtorem(60);
+            font-size: pxtorem(26);
+            padding: pxtorem(16) pxtorem(56);
+            width: 100%;
+        }
     }
 }
 

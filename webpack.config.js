@@ -27,7 +27,8 @@ let config = {
             path.join(__dirname, './src/car-check/js/hotcss.js'),
             path.join(__dirname, './src/car-check/index.js')
         ],
-        'react-lib': ['react', 'react-dom', 'redux', 'react-redux']
+        'react-lib': ['react', 'react-dom', 'redux', 'react-redux'],
+        'antd': ['antd']
     },
     output: {
         publicPath: '/',
@@ -77,7 +78,7 @@ let config = {
             template: './src/car-check/index.html',
             inject: 'body',
             filename: 'index.html',
-            chunks: ['car-check', 'react-lib']
+            chunks: ['car-check', 'react-lib', 'antd']
         }),
         /* new ExtractTextPlugin('./todos/css/index.css', {
              allChunks: true,

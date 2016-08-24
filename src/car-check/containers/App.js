@@ -1,14 +1,17 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux'
 import { UpdateView } from '../actions'
+import { DatePicker, Button, Modal, Pagination} from 'antd';
+import 'antd/dist/antd.css'
+
 let id = 1;
 
 class Header extends Component {
     constructor(props) {
         super(props);
-        this.onkeyUp = this.onkeyUp.bind(this);
+        this.handleOnkeyUp = this.handleOnkeyUp.bind(this);
     }
-    onkeyUp(e) {
+    handleOnkeyUp(e) {
         const {dispatch} = this.props;
         const input = this.refs.input;
         const value = input.value.trim();
@@ -26,7 +29,7 @@ class Header extends Component {
     render() {
         return (
             <header>
-                <input placeholder="请输入车牌号" autofocus="true" ref='input' onKeyUp={this.onkeyUp}/>
+                <input placeholder="请输入车牌号" className="p-search" autofocus="true" ref='input' onKeyUp={this.handleOnkeyUp}/>
                 <i></i>
             </header>
         )
@@ -75,12 +78,46 @@ ListItem = connect((state) => {
 })(ListItem);
 
 export default class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { visible: false }
+        this.handleOk = this.handleOk.bind(this);
+        this.showModal = this.showModal.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
+    }
+    handleOk() {
+        this.handleCancel()
+    }
+    showModal() {
+        this.setState({
+            visible: true
+        })
+    }
+    handleCancel() {
+        this.setState({
+            visible: false
+        })
+    }
     render() {
         return (
             <section className="page p-search slide in">
                 <div className="inner-wrap">
                     <Header/>
                     <ListItem/>
+                    <DatePicker />
+                    <Pagination size="small" total={50}
+                        showTotal={total => `共 ${total} 条`}
+                        showSizeChanger showQuickJumper />
+                    <Button type="primary" onClick={this.showModal}>显示对话框</Button>
+                    <Modal title="第一个 Modal"
+                        visible={this.state.visible}
+                        onOk={this.handleOk}
+                        onCancel={this.handleCancel}
+                        >
+                        <p>对话框的内容</p>
+                        <p>对话框的内容</p>
+                        <p>对话框的内容</p>
+                    </Modal>
                 </div>
             </section>
         )
