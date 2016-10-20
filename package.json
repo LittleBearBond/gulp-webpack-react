@@ -40,8 +40,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --hot --inline --config webpack.config.js --progress --colors",
-    "build": "npm run remove:build && export NODE_ENV=production&&webpack -p --config webpack.dist.config.js --progress --colors",
+    "dev": "webpack-dev-server --hot --inline --config webpack.config.js --progress ",
+    "build": "npm run remove:build && export NODE_ENV=production&&webpack -p --config webpack.dist.config.js --progress --colors --display-modules",
     "remove:build": "rm -rf dist"
   },
   "repository": {

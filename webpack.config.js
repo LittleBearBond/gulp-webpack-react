@@ -34,8 +34,8 @@ let config = {
         publicPath: '/',
         //这个路径配置 真TM的坑啊
         path: path.join(__dirname, '/dist/'),
-        filename: '[name].js',//.[hash:8]
-        chunkFilename: '[name].js',//.[hash:8]
+        filename: '[name].js', //.[hash:8]
+        chunkFilename: '[name].js', //.[hash:8]
     },
     cache: true,
     debug: true,
@@ -91,27 +91,28 @@ let config = {
             exclude: /node_modules/,
             loader: 'react-hot!babel',
         }, {
-                test: /(\.css|\.scss)/,
-                loader: 'style!css!postcss!sass?outputStyle=expanded'
+            test: /(\.css|\.scss)/,
+            loader: 'style!css!postcss!sass?outputStyle=expanded'
                 // loader: ExtractTextPlugin.extract("style-loader", "css-loader", "css-loader", "postcss-loader", "sass-loader?outputStyle=expanded")
-            }, {
-                test: /\.json$/,
-                loader: 'json'
-            }, {
-                test: /\.(png|jpg|woff|woff2|eot|ttf|svg)$/,
-                loader: 'url?limit=8192'
-            }]
+        }, {
+            test: /\.json$/,
+            loader: 'json'
+        }, {
+            test: /\.(png|jpg|woff|woff2|eot|ttf|svg)$/,
+            loader: 'url?limit=8192'
+        }]
     },
     /*通过引用外部文件的方式引入第三方库
-    * externals 对象的 key 是给 require 时用的，比如 require('react')，
-    * 对象的 value 表示的是如何在 global 中访问到该对象，
-    * 这里是 window.React。这时候 index.html 就变成下面这样
-    */
+     * externals 对象的 key 是给 require 时用的，比如 require('react')，
+     * 对象的 value 表示的是如何在 global 中访问到该对象，
+     * 这里是 window.React。这时候 index.html 就变成下面这样
+     */
     //为什么去掉这个配置，是因为react单独抽离为一个文件，不是每次手动引入的
     /*externals: {
         react: 'React'
     }*/
 };
+// 文件路径指向(可加快打包过程)。
 [
     '/react/dist/react.js',
     '/react/dist/react.min.js',
